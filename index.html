@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilgisayar Mimarisi Notları</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Markdown içeriği için temel stiller */
+        #content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        #content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        #content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        #content code:not(pre > code) {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        #content pre {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        #content pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.9em;
+        }
+        #content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        #content th, #content td {
+            border: 1px solid #d1d5db;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        #content th {
+            background-color: #f9fafb;
+        }
+        #content ul, #content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            list-style-position: outside;
+        }
+        #content li {
+            margin-bottom: 0.5rem;
+        }
+        #content li > ul, #content li > ol {
+            margin-top: 0.5rem;
+        }
+        #content blockquote {
+            border-left: 4px solid #d1d5db;
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #6b7280;
+        }
+
+        /* Dark mode stilleri */
+        @media (prefers-color-scheme: dark) {
+            #content h1, #content h2 {
+                border-color: #374151;
+            }
+            #content code:not(pre > code) {
+                background-color: #374151;
+            }
+            #content th, #content td {
+                border-color: #4b5563;
+            }
+            #content th {
+                background-color: #1f2937;
+            }
+            #content blockquote {
+                border-color: #4b5563;
+                color: #9ca3af;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex h-screen">
+
+    <!-- Kenar Çubuğu (Sidebar) -->
+    <aside class="w-64 lg:w-80 h-screen p-6 overflow-y-auto bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden sm:block">
+        <h2 class="text-xl font-bold mb-4">İçindekiler</h2>
+        <nav id="sidebar-nav">
+            <!-- Navigasyon linkleri buraya eklenecek -->
+        </nav>
+    </aside>
+
+    <!-- Ana İçerik Alanı -->
+    <main class="flex-1 h-screen overflow-y-auto p-6 md:p-10 lg:p-12">
+        <div id="content" class="max-w-4xl mx-auto">
+            <!-- Markdown içeriği buraya render edilecek -->
+        </div>
+    </main>
+
+    <!-- Gömülü Markdown Notları -->
+    <script>
+        // Notlarınızın içeriğini buraya gömdüm
+        const markdownContent = `
+# Bilgisayar Mimarisi Notları
+
+## 1. Bilgisayar Mimarisine Giriş
+
+Bilgisayar Mimarisi, bir bilgisayarın işleyişini, yapı taşlarını ve bu yapıların birbiri ile nasıl etkileşime girdiğini inceleyen bilim dalıdır. Genel olarak donanım bileşenleri ile yazılım katmanının uyumunu inceler.
+
+Bilgisayar mimarisi, bilgisayar sistemine uygulanmış mühendislik yapısı ve o sistemi oluşturan donanım ekipmanının sistemini ifade eder.
+
+### Basit Mikroişlemci Mimarisi ve CPU Görevleri
+
+Kısaca CPU (Merkezi İşlem Birimi) denir.
+
+* Sistemde tüm elemanlara ve birimlere zaman ve kontrol sinyali sağlar.
+
+* Bellekten komut alır ve getirir (load).
+
+* Aldığı komutu çözme işlemi yapar. Komutun operantına göre veriyi ilgili birime iletir.
+
+* Tüm ALU (Aritmetik Mantık Birimi) sürecini yürütür.
+
+* Program işlerken G/Ç (Giriş/Çıkış) birimlerinden gelen kesme (interrupt) sinyallerine cevap verir.
+
+## 2. CPU ve Bileşenleri
+
+### CPU'nun Kontrol Ettiği Birimler
+
+* ALU (Aritmetik Mantık Birimi)
+
+* Bellek Arabirimleri
+
+* Register (Kaydedici)
+
+* PC (Program Counter / Program Sayacı)
+
+* Zamanlayıcı ve Kontrol Birimleri
+
+### ALU (Aritmetik Mantık Birimi)
+
+Tüm mantıksal ve aritmetik işlemleri kontrol eden donanımsal yapıdır. ALU'da tüm işlemler kontrol sinyalleri vasıtası ile belirli zaman ve ilgili sinyal gözetiminde icra edilir.
+
+**Çalışma Mantığı:**
+
+1. CPU işlenecek veriyi ALU'ya yönlendirir.
+
+2. ALU veriye komutu uygular.
+
+3. Sonucu ya CPU'ya ya da belleğe gönderir.
+
+### Zamanlama ve Kontrol Birimi
+
+Sistemin tüm işleyişini ve her sürecin ne kadar zamanda yerine Edeceğini icra eder. Bu birim bellekte (program bölümünde) alınan komutun alınıp getirilmesi, kodun çözülmesi, ALU'da işlenmesi gibi süreçlere ait tüm kontrol sinyalleri üretir. Bilgisayar sisteminde yer alan dahili ve harici tüm elemanlar bu kontrol sistemiyle denetlenir.
+
+### ISA (Instruction Set Architecture - Komut Seti Mimarisi)
+
+ISA, yazılımı işlemciyle (donanım) nasıl çalışacağını belirleyen, programlama dili ile donanım arasında düşük seviyeli bir arayüzdür.
+
+Bilgisayarın donanım katmanına olabildiğince müdahale etmek, ilgili mimarinin dilini bilmekle
+gerçekleşir. Bilgisayarın dilinde komutlara "instruction" denir. Bu komutların
+bütününe ise **Komut Seti Mimarisi** denir.
+
+Komut seti mimarisi, ASM (Assembly) diline açılır. x86 ve ARM, en bilinen komut seti
+mimarileridir. Her işlemcinin kendine has komut seti vardır.
+
+## 3. MIPS Mimarisi
+
+MIPS mimarisi, RISC (Reduced Instruction Set Computer) tabanlı komut seti mimarisine sahiptir. MIPS'te her komut genellikle tek işlem yapan komutlardır ve 32 bit uzunluğundadır. Basit ve tutarlı bir komut yapısı vardır. "Bellekten veriyi al, işle, kaydet" mantığıyla çalışır (Load/Store mimarisi).
+
+MIPS mimarisinde komutlar genelde 4 temel öğeden oluşur:
+
+1. İşlemin adı (Opcode)
+
+2. Sonucun Saklanacağı Kaydedici (Destination Register)
+
+3. 1. İşlenen Veri (Operand 1)
+
+4. 2. İşlenen Veri (Operand 2)
+
+**Örnek:**
+\`sub $t0, $t1, $t2\`
+
+* \`sub\`: İşlem (Çıkarma)
+
+* \`$t0\`: Sonucun saklanacağı hedef (Destination)
+
+* \`$t1\`: 1. Operant (Operand 1)
+
+* \`$t2\`: 2. Operant (Operand 2)
+
+### Aritmetik Komutlar (Toplama / Çıkarma)
+
+* \`add\`: Toplama (Opa1 ve Opa2'nin toplanması)
+
+* \`sub\`: Çıkarma
+
+**Örnekler:**
+\`$t1 = 5\` ve \`$t2 = 5\` olsun.
+
+\`\`\`mips
+# $t0 = $t1 + $t2  (t0 = 5 + 5 = 10)
+add $t0, $t1, $t2 
+\`\`\`
+
+**Örnek:** \`$t0\` kaydedicisini sıfırlayan kod parçası:
+
+\`\`\`mips
+# $t0 = $zero + $zero (t0 = 0 + 0 = 0)
+add $t0, $zero, $zero
+\`\`\`
+
+(\$zero her zaman 0 değerini tutan özel bir kaydedicidir)
+
+**Örnek:** \`$t1\`'deki veriyi \`$t2\`'ye transfer eden kod:
+
+\`\`\`mips
+# $t2 = $t1 + $zero (t2 = $t1 + 0)
+add $t2, $t1, $zero
+\`\`\`
+
+*Not: Bu işlem için \`move\` komutu da kullanılabilir.*
+
+### Kaydediciler (Registers)
+
+Assembly'de (ASM) her satır kod genellikle tek bir işlemi belirtir ve komutlar bir "cycle" (döngü) içinde icra olur. MIPS komutları veriler üzerinde değil, kaydediciler üzerinde işlem yapar.
+
+MIPS'te 32 adet 32-bitlik kaydedici vardır. Her birinin farklı görevi olan kaydediciler bulunur. Parametre taşınması, sonuç döndürmesi, geçici depolama için kullanılır. Kaydediciye yazma işlemi hızlı olduğu için son yıllarda bütünleşik sistemlerde de kullanılmaktadır.
+
+**Sık Kullanılan Kaydediciler:**
+
+* \`$zero\`: Değeri her zaman 0'dır.
+
+* \`$t0\` - \`$t7\`: Geçici (temporary) kaydediciler.
+
+* \`$s0\` - \`$s7\`: Kaydedilmiş (saved) parametreler/değişkenler.
+
+* \`$sp\`: Stack Pointer (Yığın Göstericisi).
+
+### Değişkenler
+
+MIPS'te değişkenler bellekte tutulur. Temel düzeyde 3 değişken yapısı vardır:
+
+1. Global ve Statik değişkenler (\`.data\` bölümü)
+
+2. Yerel değişkenler (Yığın - Stack)
+
+3. Geçici değişkenler (Kaydediciler)
+
+**Global ve Statik Değişken Tanımlama (.data):**
+
+| Direktif | Açıklama |
+| :--- | :--- |
+| \`.word\` | Kelime (4 byte) |
+| \`.half\` | Yarım Kelime (2 byte) |
+| \`.byte\` | Bayt (1 byte) |
+| \`.space\` | Boşluk (N byte yer ayırır) |
+| \`.asciiz\` | String (Null sonlu metin) |
+
+**Örnek (C vs MIPS):** C dilindeki \`int x = 5;\` ifadesi:
+
+\`\`\`mips
+.data
+x: .word 5
+\`\`\`
+
+### Veri Transfer Komutları
+
+1. **Kaydediciden Kaydediciye Transfer**
+
+   * \`move $t3, $t2\`: \`$t2\`'deki veriyi \`$t3\`'e transfer eder.
+
+   * \`add $t3, $t2, $zero\`: (Yukarıda bahsedildiği gibi).
+
+2. **Bellekten Kaydediciye Transfer (Load)**
+
+   * \`lw\` (Load Word): Bellekten 4 byte (word) veriyi alıp kaydediciye transfer eder.
+
+   * \`lh\` (Load Halfword): Bellekten 2 byte (half) veriyi kaydediciye transfer eder.
+
+   * \`lb\` (Load Byte): Bellekten 1 byte veriyi kaydediciye transfer eder.
+
+3. **Kaydediciden Belleğe Transfer (Store)**
+
+   * \`sw\` (Store Word): 32 bit (4 byte) kaydedicinin verisini belleğe transfer eder.
+
+   * \`sh\` (Store Halfword): 16 bit (2 byte) veriyi belleğe transfer eder.
+
+   * \`sb\` (Store Byte): 8 bit (1 byte) veriyi belleğe transfer eder.
+
+4. **Adres / Sabit Yükleme**
+
+   * \`li\` (Load Immediate): Bir kaydediciye sabit bir değer atamak için kullanılır.
+
+     \`\`\`mips
+     li $t0, 5  # $t0 = 5
+     \`\`\`
+
+     Bu komut aslında \`addi $t0, $zero, 5\` şeklinde çalışır (\$t0 = $zero + 5).
+
+   * \`la\` (Load Address): Bir değişkenin (etiketin) bellek adresini bir kaydediciye transfer eder.
+
+     \`\`\`mips
+     la $t0, x  # $t0 = x'in bellek adresi
+     \`\`\`
+
+### Bellek Organizasyonu ve Dizi Adresleme
+
+MIPS 32-bit uzunluğunda "word"ler kullanır, ancak adresleme "byte" formatında yapılır. (Byte adresleme).
+
+Bir dizinin (array) elemanları bellekte ardışıl olarak tutulur. MIPS 32-bit (4 byte) word kullandığı için bir dizinin elemanlarına erişirken 4'ün katları şeklinde ofset (offset) kullanılır.
+
+Eğer \`a\` bir tamsayı (word) dizisi ve başlangıç adresi \`$s2\` kaydedicisinde tutuluyorsa:
+
+* \`a[0]\` için adres: \`0($s2)\`
+
+* \`a[1]\` için adres: \`4($s2)\`
+
+* \`a[5]\` için adres: \`20($s2)\`
+
+**Örnek:** \`B[8] = A[i-j]\` (Varsayımlar: \`A\`'nın başlangıç adresi \`$s2\`'de, \`B\`'nin başlangıç adresi \`$s5\`'te, \`i\` \`$s3\`'te, \`j\` \`$s4\`'te)
+
+\`\`\`mips
+# Önce (i-j) hesaplanır
+sub $t0, $s3, $s4  # $t0 = i - j
+
+# A[i-j] adresini hesapla: (i-j) * 4
+# sll (Shift Left Logical) komutu 2 bit sola kaydırır (4 ile çarpmak demektir)
+sll $t1, $t0, 2    # $t1 = (i-j) * 4
+
+# A'nın başlangıç adresini ekle
+add $t1, $t1, $s2  # $t1 = &A[i-j] (A[i-j]'nin adresi)
+
+# Bellekten değeri yükle
+lw $t0, 0($t1)     # $t0 = A[i-j]
+
+# B[8]'in adresini hesapla. B'nin başlangıç adresi $s5'te.
+# 8 * 4 = 32 byte ofset gerekir.
+# $t0 (A[i-j]'nin değeri) belleğe, $s5'ten 32 byte ileriye yazılır.
+sw $t0, 32($s5)    # B[8] = $t0
+\`\`\`
+
+### Mantık Komutları (Logical)
+
+| İşlem | Komut (Register) | Komut (Immediate) |
+| :--- | :--- | :--- |
+| AND | \`and\` | \`andi\` |
+| OR | \`or\` | \`ori\` |
+| XOR | \`xor\` | \`xori\` |
+| NOT | \`nor\`* | |
+
+*(MIPS'te doğrudan \`not\` yoktur, \`nor\` (NOT OR) ile sağlanır. \`nor $t0, $t1, $zero\` işlemi \`$t1\`'in değilini alır)*
+
+**Örnek:**
+
+\`\`\`mips
+andi $s3, $s4, 10  # $s3 = $s4 AND 10
+\`\`\`
+
+### Shift (Kaydırma) Komutları
+
+MIPS mimarisinde shift komutları, bir sayının bitlerini belirli miktar sola veya sağa kaydırmak için kullanılır. Genelde aritmetik işlemleri hızlandırmak (özellikle 2 ile çarpma/bölme) için tercih edilir.
+
+* \`sll\` (Shift Left Logical): Sola mantıksal kaydırma. En sağdaki bit(ler) 0 ile doldurulur.
+
+  \`\`\`mips
+  # $s2'deki değeri 5 bit sola kaydır, sonucu $t3'e yaz
+  sll $t3, $s2, 5
+  \`\`\`
+
+* \`srl\` (Shift Right Logical): Sağa mantıksal kaydırma. En soldaki bit(ler) 0 ile doldurulur.
+
+  \`\`\`mips
+  # $s2'deki değeri 10 bit sağa kaydır, sonucu $s3'e yaz
+  srl $s3, $s2, 10
+  \`\`\`
+
+* \`sra\` (Shift Right Arithmetic): Sağa aritmetik kaydırma. Sağa kaydırma işlemi yapar ama en soldaki biti (işaret biti) korur. Negatif sayılarda işaretin korunması için önemlidir.
+
+* \`sllv\`, \`srlv\`, \`srav\`: (Variable) Kaydırma miktarını bir sabitten değil, bir kaydediciden alırlar.
+
+**Örnek (srl):**
+
+\`\`\`mips
+li $t0, 10        # $t0 = 10 (binary: ...1010)
+srl $t1, $t0, 1   # $t0'ı 1 bit sağa kaydır (binary: ...0101)
+                  # $t1 = 5
+\`\`\`
+
+### Çarpma ve Bölme İşlemleri
+
+MIPS mimarisinde çarpma ve bölme işlemleri ALU ünitesi içinde değil, ALU'nun yanında harici donanımsal bir yapıda (MDU - Multiply/Divide Unit) yapılır.
+
+İki 32 bit sayının çarpımı 64 bit uzunluğunda bir sonuç verir. MIPS 32 bit üzerinde işlem yapsa da, bu 64 bitlik sonucu saklamak için iki adet özel 32 bitlik kaydedici tanımlanmıştır:
+
+* \`HI\`: Sonucun yüksek (high) 32 bitini tutar.
+
+* \`LO\`: Sonucun düşük (low) 32 bitini tutar. Bu işlem otomatik yapılır.
+
+**Çarpma Komutları:**
+
+* \`mult\`: 32 bitlik iki (negatif veya pozitif) sayıyı çarpar. Sonuç \`HI\` ve \`LO\`'ya yazılır.
+
+* \`multu\`: Sadece pozitif (unsigned) sayıları çarpar.
+
+**Bölme Komutları:**
+
+* \`div\`: Tamsayıları böler (işaretli).
+
+* \`divu\`: Sadece pozitif (unsigned) tamsayıları böler.
+
+Bölme sonucunda:
+
+* \`LO\`: Bölüm (Quotient) sonucunu tutar.
+
+* \`HI\`: Kalan (Remainder) sonucunu tutar.
+
+**Sonuçları Alma Komutları:** Çarpım veya bölme sonucu istenen sonuca (kaydediciye) almak için bu komutlar çalıştırılır:
+
+* \`mflo\` (Move From LO): \`LO\` kısmında olan veriyi register'a alır.
+
+* \`mfhi\` (Move From HI): \`HI\` kısmında olan veriyi ilgili kaydediciye alır.
+
+**Örnek (Çarpma):**
+
+\`\`\`mips
+mult $s1, $s3  # $s1 * $s3. Sonuç HI/LO'ya gider
+mflo $t2       # $t2 = LO (Çarpımın düşük 32 biti)
+mfhi $t3       # $t3 = HI (Çarpımın yüksek 32 biti)
+\`\`\`
+
+**Örnek (Bölme):** \`(b + C[i]) / 2\` (Varsayımlar: \`b\` \`$s1\`'de, \`C\`'nin adresi \`$s3\`'te, \`i\` \`$s5\`'te, 2 sayısı \`$s4\`'te (içinde 2 var))
+
+\`\`\`mips
+# C[i]'nin adresini hesapla
+sll $t1, $s5, 2    # $t1 = i * 4
+add $t1, $t1, $s3  # $t1 = &C[i]
+lw $t2, 0($t1)     # $t2 = C[i]
+
+# (b + C[i])
+add $t3, $s1, $t2  # $t3 = b + C[i]
+
+# Bölme (li $s4, 2 varsayımı ile)
+div $t3, $s4       # $t3 / $s4 (LO = Bölüm, HI = Kalan)
+
+# Sonucu al
+mflo $t2           # $t2 = Bölüm (Sonuç)
+mfhi $t3           # $t3 = Kalan (Bu örnekte kullanılmıyor)
+\`\`\`
+
+## 4. Kontrol Akışı (Dallanma ve Atlama)
+
+### Program Sayacı (Program Counter - PC)
+
+Program Sayacı (PC), CPU'nun bellekten yürüteceği bir sonraki komutun adresini tutan özel bir kaydedicidir.
+
+1. Komut bellekten alınır (Fetch).
+
+2. Komut alınır alınmaz Program Sayacı değerini 1 artırır (daha doğrusu bir sonraki komutun adresine geçer, MIPS'te 4 byte artar). Böylece yeni fetch edilecek komutun adresini alır.
+
+3. Komut çözülür (Decode).
+
+4. Komut yürütülür (Execute - örn: ALU).
+
+5. Sonuç kaydedilir (Store/Writeback).
+
+Bazı durumlarda Program Sayacı'nın değerini manuel olarak değiştirebiliriz; bu işleme **atlama (jump)** veya **dallanma (branch)** denir.
+
+* **Koşullu Komutlar (Branch):** Belirli bir koşul (eşitlik, büyüklük vb.) sağlanırsa atlar.
+
+* **Koşulsuz Komutlar (Jump):** Herhangi bir koşula bakmadan atlar.
+
+Atlama yapılacak hedef adres "Etiket" (Label) ile temsil edilir. Program Sayacı etikete gelince etiketin belirttiği işlevi yapmaya başlar.
+
+### Koşullu Dallanma (Branch) Komutları
+
+1. **\`beq\` (Branch if Equal)**: Eşitse atla.
+
+   \`\`\`mips
+   # Eğer $t1, $t2'ye eşitse "Label" etiketine atla
+   beq $t1, $t2, Label
+   \`\`\`
+
+   Eşitlik yoksa program bir sonraki komuttan devam eder.
+
+2. **\`bne\` (Branch not Equal)**: Eşit değilse atla.
+
+   \`\`\`mips
+   # Eğer $t1, $t2'ye eşit değilse "Label" etiketine atla
+   bne $t1, $t2, Label
+   \`\`\`
+
+3. **\`slt\` (Set on Less Than)**: ...'den küçükse ayarla. Bu bir dallanma komutu değildir, ancak dallanma için koşul hazırlar.
+
+   \`\`\`mips
+   # Eğer $s2 < $t3 ise $s1 = 1, değilse $s1 = 0 ata
+   slt $s1, $s2, $t3
+   \`\`\`
+
+4. **\`slti\` (Set on Less Than Immediate)**: Sabit bir değerden küçükse ayarla.
+
+   \`\`\`mips
+   # Eğer $s2 < 5 ise $s1 = 1, değilse $s1 = 0 ata
+   slti $s1, $s2, 5
+   \`\`\`
+
+**\`slt\` ve \`beq\`/\`bne\` Kullanımı (Küçüktür/Büyüktür Dallanması):** "Eğer \`$a0 < 15\` ise Label'a atla" işlemi:
+
+\`\`\`mips
+slti $t0, $a0, 15  # $t0 = ($a0 < 15) ? 1 : 0
+bne $t0, $zero, Label # Eğer $t0 != 0 (yani 1 ise), Label'a atla
+\`\`\`
+
+(Tersi için \`beq $t0, $zero, Label\` kullanılır)
+
+### Koşulsuz Atlama (Jump)
+
+1. **\`j\` (Jump)**: Koşulsuz atlama komutudur. Programdaki etikete herhangi bir sorgu yapmadan atlar.
+
+   \`\`\`mips
+   j etiket2
+   \`\`\`
+
+### Kontrol Akışı Örnekleri
+
+**Örnek: if-else** C Kodu:
+
+\`\`\`c
+if (i == j) {
+    h = i + j;
+} else {
+    h = i - j;
+}
+\`\`\`
+
+MIPS Kodu: (Varsayımlar: \`h=$s3\`, \`i=$s4\`, \`j=$s5\`)
+
+\`\`\`mips
+    # if (i != j) ise 'else' bloğuna atla
+    bne $s4, $s5, etiket_else
+
+    # 'if' bloğu (i == j)
+    add $s3, $s4, $s5
+    
+    # 'else' bloğunu atla, 'end' etiketine git
+    j etiket_end
+
+etiket_else:
+    # 'else' bloğu (i != j)
+    sub $s3, $s4, $s5
+
+etiket_end:
+    # Program buradan devam eder
+\`\`\`
+
+**Örnek: for Döngüsü** C Kodu:
+
+\`\`\`c
+for (j=0; j < 10; j++) {
+    a = a + j;
+}
+\`\`\`
+
+MIPS Kodu: (Varsayımlar: \`j=$s0\`, \`a=$s1\`, sınır (10) \`$t0\`'da)
+
+\`\`\`mips
+    # j = 0 (Başlatma)
+    addi $s0, $zero, 0  # $s0 = 0 (j=0)
+
+    # Sınır değerini ayarla
+    addi $t0, $zero, 10 # $t0 = 10 (sınır)
+
+dongu_basi:
+    # Koşul kontrolü: if (j >= 10) döngüden çık
+    # (slt $t1, $s0, $t0) -> $t1 = (j < 10) ? 1 : 0
+    # beq $t1, $zero, dongu_cikis
+    # Alternatif (kaynaktaki gibi):
+    beq $s0, $t0, dongu_cikis # Eğer j == 10 ise çık (j < 10 koşulu bittiğinde)
+
+    # Döngü gövdesi
+    add $s1, $s1, $s0 # a = a + j
+
+    # Artırma
+    addi $s0, $s0, 1 # j = j + 1
+
+    # Döngü başına geri dön
+    j dongu_basi
+
+dongu_cikis:
+    # Program buradan devam eder
+\`\`\`
+
+## 5. Sub-Routine (Prosedürler / Fonksiyonlar)
+
+MIPS'te Sub-Routine (Alt Program), bir program içinde tekrar eden işlemleri tek bir yerde tanımlayıp gerektiğinde çağırmaya yarayan bir alt programcıktır.
+
+Ana programdan özel komutlarla çağrılır ve **dönüş adresi** otomatik olarak özel kaydedicilere kayıt edilir. Alt program tamamlandığında dönüş komutuyla ana programa geri dönülür.
+
+**Prosedür Kullanım Adımları:**
+
+1. Kullanılacak parametrelerin prosedürün ulaşacağı bir yere yerleştirilmesi (argüman kaydedicileri).
+
+2. Programın prosedür işlemine transferinin kontrolü (çağırma).
+
+3. Prosedür işlemi için (ihtiyaç halinde) hafıza kaynaklarının oluşturulması (yığın/stack kullanımı).
+
+4. Sonuçların çağıran programın erişebileceği bir yerde hafızaya alınması (dönüş değeri kaydedicileri).
+
+5. Çağıran programın, prosedürden kontrolü tekrar sağlaması (dönüş).
+
+### Prosedürler için Kaydediciler ve Komutlar
+
+MIPS'te prosedür çağrıları için özel kaydediciler kullanılır:
+
+* **\`$a0\` - \`$a3\` (Arguments)**: Prosedür işlemine ait inputların (parametrelerin) tutulduğu kaydedicilerdir. (4 adet)
+
+* **\`$v0\` - \`$v1\` (Values)**: Prosedür işlemi sonucu oluşan verileri (dönüş değerlerini) tutan kaydedicilerdir.
+
+* **\`$ra\` (Return Address)**: Programın kaldığı noktaya geri dönebilmesi için kullanılan (dönüş adresini tutan) kaydedicidir.
+
+**Prosedür Komutları:**
+
+* **\`jal\` (Jump And Link)**: Prosedürü çağırmak için kullanılır.
+
+  1. \`$ra\` kaydedicisine bir sonraki komutun adresini (PC+4) otomatik olarak saklar.
+
+  2. Belirtilen prosedür etiketine (adına) atlar.
+
+* **\`jr\` (Jump Register)**: Prosedürden çıkışı (dönüşü) sağlar.
+
+  \`\`\`mips
+  jr $ra  # $ra kaydedicisinde saklanan adrese geri atla
+  \`\`\`
+
+**Çağırma Akışı:**
+
+1. Ana program \`jal\` ile çağırmadan önce parametreleri \`$a0\` - \`$a3\` içine gönderir (yükler).
+
+2. \`jal\` komutu \`$ra\`'yı ayarlar ve prosedüre atlar.
+
+3. Prosedür işlemini yapar.
+
+4. Dönüş değerini (sonucu) \`$v0\` veya \`$v1\` kaydedicisine transfer eder (ör: \`move $v0, $s0\`).
+
+5. \`jr $ra\` komutu ile ana programda kaldığı yere geri döner.
+
+6. Ana program \`$v0\`'daki sonucu alır (ör: \`move $t1, $v0\`).
+
+### Prosedürler ve Yığın (Stack) Organizasyonu
+
+Prosedürler, özellikle iç içe çağrıldığında veya çok fazla yerel değişkene ihtiyaç duyduğunda, **Stack (Yığın)** adı verilen özel bir bellek alanını kullanır. Yığın, bellek tahsisinin dinamik yapıldığı bir alandır.
+
+* \`$sp\` (Stack Pointer), yığının son elemanının (tepesinin) adresini tutar.
+
+* Yığına veri ekleme (kaydetme) işlemine **PUSH** denir. \`$sp\` azaltılır ve veri (\`sw\`) kaydedilir.
+
+* Yığından veri çekme (geri yükleme) işlemine **POP** denir. Veri (\`lw\`) okunur ve \`$sp\` artırılır.
+
+Bir prosedür, eğer \`$s0\`-\`$s7\` (saved registers) gibi kaydedicileri veya \`$ra\` (dönüş adresi, iç içe \`jal\` varsa) kullanacaksa, bu değerleri yığına **PUSH** etmeli (saklamalı), işi bitince yığından **POP** etmeli (geri yüklemeli) ve sonra \`jr $ra\` ile dönmelidir.
+
+**Örnek (Yığın kullanımı):** Bir C fonksiyonu: \`f = (g+h) - (i+j)\` Parametreler: \`g,h,i,j\` -> \`$a0, $a1, $a2, $a3\`
+
+\`\`\`mips
+# Prosedür Etiketi
+Ornek:
+    # 1. Yığında yer aç (örn: 1 kaydedici saklamak için 4 byte)
+    addi $sp, $sp, -4 
+    
+    # 2. Saklanacak kaydediciyi yığına yaz (örn: $s0)
+    sw $s0, 0($sp)    
+
+    # ... Prosedürün asıl işlemleri ...
+    # $s0'ı geçici olarak kullan...
+    add $t0, $a0, $a1  # $t0 = g + h
+    add $t1, $a2, $a3  # $t1 = i + j
+    sub $s0, $t0, $t1  # $s0 = (g+h) - (i+j)
+
+    # Sonucu dönüş kaydedicisine taşı
+    move $v0, $s0     
+
+    # 3. Kaydediciyi yığından geri yükle
+    lw $s0, 0($sp)    
+
+    # 4. Yığını eski haline getir (açtığın yeri kapat)
+    addi $sp, $sp, 4  
+
+    # 5. Ana programa geri dön
+    jr $ra            
+\`\`\`
+
+## 6. Öz Yineleme (Recursive)
+
+Öz yineleme, bir fonksiyonun (prosedürün) kendi kendini çağırdığı bir programlama tekniğidir.
+
+MIPS dilinde bir fonksiyon çağrıldığında, her seferinde önce mevcut durumunu korumak zorundadır. Yani, kaydediciler (\`$s\` registerları, \`$a\` registerları) ve geri dönüş adresi (\`$ra\`) yığına (stack) kaydedilir. Ardından program kendini çağırır.
+
+1. **Yığın (Stack) Kullanımı:** Programcı, her öz yineleme çağrısı yaptığı zaman parametreleri, geri dönüş adresini (\`$ra\`) ve ihtiyaç duyulan diğer kaydedicileri yığına kaydetmelidir.
+
+2. **Durdurma Koşulu (Base Case):** Programcı tarafından ayarlanmadığı zaman sonsuz döngüye girme eğilimindedir. Bu nedenle programcı uygun bir durma koşulu belirlemelidir.
+
+3. **Kendi Kendini Çağırma:** Fonksiyonun belirli bir amaca ulaştığında programcının kendisini tekrar çağırması istenir.
+
+### Örnek: Rekürsif Faktöriyel
+
+Faktöriyel(N) = N * Faktöriyel(N-1) Durdurma Koşulu: Faktöriyel(1) = 1
+
+MIPS Kodu (Stack kullanarak): (N değeri \`$a0\` ile geliyor, sonuç \`$v0\` ile dönüyor)
+
+\`\`\`mips
+Faktoriyel:
+    # 1. Yığında yer aç (2 word: $a0 ve $ra için)
+    addi $sp, $sp, -8      
+
+    # 2. Kaydedicileri yığına sakla
+    sw $a0, 0($sp)          # N değerini sakla
+    sw $ra, 4($sp)          # Dönüş adresi sakla
+
+    # 3. Durdurma koşulu: if (N == 1)
+    li $t0, 1
+    beq $a0, $t0, durma_kosulu
+
+    # 4. Rekürsif adım: (N != 1)
+    # N-1 hesapla
+    addi $a0, $a0, -1       # $a0 = N - 1
+    
+    # jal Faktoriyel(N-1)
+    jal Faktoriyel         
+    
+    # -- Buraya döndüğünde, $v0 = Faktoriyel(N-1) sonucunu tutar --
+
+    # 5. Yığından eski değerleri geri yükle
+    lw $a0, 0($sp)          # Eski N değerini geri yükle
+    lw $ra, 4($sp)          # Eski dönüş adresini geri yükle
+    
+    # 6. Sonucu hesapla: N * Faktoriyel(N-1)
+    mul $v0, $v0, $a0       # $v0 = $v0 * $a0
+    
+    # 7. Yığını kapat ve geri dön
+    addi $sp, $sp, 8       
+    jr $ra                 
+
+durma_kosulu:
+    # (N == 1) ise $v0 = 1 ayarla
+    li $v0, 1              
+    
+    # Yığını kapat ve geri dön (Saklananları geri yüklemeye gerek yok,
+    # ama stack pointer düzeltilmeli)
+    addi $sp, $sp, 8       
+    jr $ra                 
+\`\`\`
+
+### Örnek: Rekürsif $2^3$
+
+(N = 2, Üs = 3. \`hesapla(2, 3)\`) (N \`$a0\`'da, Üs \`$a1\`'de geliyor)
+
+\`\`\`mips
+main:
+    li $a0, 2               # N = 2
+    li $a1, 3               # Üs = 3
+    jal hesapla            
+    move $t1, $v0           # $t1 = Sonuç
+    # ... (program biter)
+
+hesapla:
+    # Yığında yer aç (2 word: $a0 (N) ve $ra)
+    addi $sp, $sp, -8      
+    sw $a0, 0($sp)          # N'i sakla
+    sw $ra, 4($sp)          # Dönüş adresini sakla
+
+    # Durdurma Koşulu: if (Üs == 0) -> Sonuç 1'dir
+    beq $a1, $zero, dur            
+    
+    # Rekürsif Adım: (Üs != 0)
+    # Üssü 1 azalt
+    addi $a1, $a1, -1      
+    
+    # jal hesapla(N, Üs-1)
+    jal hesapla            
+    
+    # -- Döndüğünde $v0 = N^(Üs-1) --
+
+    # 4. Yığından N'i geri yükle
+    lw $a0, 0($sp)         
+    
+    # 5. Sonucu hesapla: N * N^(Üs-1)
+    mul $v0, $v0, $a0      
+    
+    # Yığından $ra'yı geri yükle ve yığını kapat
+    lw $ra, 4($sp)         
+    addi $sp, $sp, 8        # (Tersi olmalı: addi $sp, $sp, 8)
+    jr $ra                 
+
+dur:
+    # Durma koşulu (Üs=0) ise $v0 = 1
+    li $v0, 1              
+    
+    # Yığını kapat ve dön
+    addi $sp, $sp, 8       
+    jr $ra                 
+\`\`\`
+
+## 7. Makine Komutu Organizasyonu
+
+MIPS mimarisi 32 bitlik komutlar kullanır. Bu 32 bitin nasıl bölümlendiği, komutun format tipine (R, I, J) göre değişir.
+
+### R-Tipi (Register Type)
+
+Tüm operantların kaydedici (register) olduğu (örn: \`add\`) ve shift komutlarını içeren formattır. R-tipi komutların \`op\` kodu genellikle "0" olur.
+
+| op | rs | rt | rd | shamt | funct |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 6 bit | 5 bit | 5 bit | 5 bit | 5 bit | 6 bit |
+
+
+* **op (Opcode)**: Komutun genel yapısı, kimliğidir.
+
+* **rs (Register Source)**: 1. operantın (kaynak) kaydedicisidir.
+
+* **rt (Register Target/Source)**: 2. operantın kaydedicisidir.
+
+* **rd (Register Destination)**: 3. operant, yani sonucun (hedefin) yazılacağı kaydedicidir.
+
+* **shamt (Shift Amount)**: Shift işlemlerinin kaç bit olacağı bilgisini verir.
+
+* **funct (Function)**: \`op\` kodunun tamamlayıcısıdır. \`op\` (0) tek başına yeterli olmadığında devreye girer ve komut hakkında detaylı bilgi (örn: 'add' mi 'sub' mı) verir.
+
+**Örnek:** \`add $t0, $s2, $s3\` -> R-Tipi
+
+### I-Tipi (Immediate Type)
+
+Yükleme (\`lw\`), depolama (\`sw\`), dallanma (\`beq\`) ve sabit (immediate) değerli komutlar (\`addi\`) bu format tipindedir.
+
+| op | rs | rt | Sabit Değer / Adres Ofseti |
+| :---: | :---: | :---: | :---: |
+| 6 bit | 5 bit | 5 bit | 16 bit |
+
+
+* **op**: Komutun tipi (örn: \`lw\`, \`sw\`, \`beq\`).
+
+* **rs**: Kaynak kaydedici (örn: \`sw\` için kaynak, \`lw\` için baz adres).
+
+* **rt**: Hedef/Kaynak kaydedici (örn: \`lw\` için hedef, \`sw\` için kaynak).
+
+* **Adres/Sabit**: 16 bitlik sabit değer veya bellek adresi ofseti (offset).
+
+**Örnek:** \`sw $t0, 2000($sp)\` -> I-Tipi **Örnek:** \`lw $t0, 1200($t1)\` -> I-Tipi
+
+### J-Tipi (Jump Type)
+
+\`jump\` (\`j\`) ve \`call\` (\`jal\`) komutları bu format tipine girmektedir.
+
+| op | Adres |
+| :---: | :---: |
+| 6 bit | 26 bit |
+
+
+* **op**: Komut tipi (j veya jal).
+
+* **Adres**: Atlanacak hedefin 26 bitlik adresi.
+
+## 8. Kapsamlı Örnekler
+
+### Örnek 1: Sayı Tahmin Oyunu
+
+**Amaç:** 0 ile 100 arasında (hedef = 57) bir sayıyı kullanıcının tahmin etmesi. Kullanıcıya her hatalı tahminde "daha büyük" / "daha küçük" şeklinde yönlendirme yapılır. Deneme sayısı da yazdırılır.
+
+\`\`\`mips
+.data
+hedef:      .word 57
+mesaj_giris: .asciiz "0 ile 100 arasi sayi girin:\n"
+mesaj_tahmin: .asciiz "Tahmininizi giriniz:\n"
+mesaj_buyuk: .asciiz "Daha buyuk bir sayi girdiniz!\n"
+mesaj_kucuk: .asciiz "Daha kucuk bir sayi girdiniz!\n"
+mesaj_tebrik: .asciiz "Tebrikler!\n"
+mesaj_deneme: .asciiz "Deneme Sayisi: \n"
+yeni_satir: .asciiz "\n"
+
+.text
+.globl main
+main:
+    # Hedef sayıyı yükle
+    lw $t0, hedef        # $t0 = 57 (Hedef)
+    
+    # Deneme sayacını sıfırla
+    li $t1, 0            # $t1 = 0 (Deneme Sayısı)
+
+    # Giriş mesajını yazdır
+    li $v0, 4
+    la $a0, mesaj_giris
+    syscall             
+
+tahmin_iste:
+    # Deneme sayısını 1 artır
+    addi $t1, $t1, 1     # $t1 = $t1 + 1
+
+    # "Tahmininizi giriniz" yaz
+    li $v0, 4
+    la $a0, mesaj_tahmin
+    syscall             
+
+    # Kullanıcıdan sayı al (int)
+    li $v0, 5
+    syscall             
+    move $t2, $v0        # $t2 = Kullanıcının tahmini
+
+    # Koşul kontrolleri
+    # if (tahmin == hedef) -> dogru
+    beq $t0, $t2, dogru 
+
+    # if (tahmin < hedef) -> kucuk
+    # blt $t2, $t0, kucuk (slt kullanarak)
+    slt $t3, $t2, $t0    # $t3 = (tahmin < hedef) ? 1 : 0
+    bne $t3, $zero, kucuk
+
+    # if (tahmin > hedef) -> buyuk
+    # (Yukarıdakilerin hiçbiri değilse büyüktür)
+    j buyuk              
+                         # (Kaynakta 'blt $t0, $t2, kucuk' yazılmış, 
+                         #  ancak bu $t0 < $t2 (hedef < tahmin) demektir,
+                         #  yani 'buyuk' durumuna atlar. 
+                         #  Buradaki 'j buyuk' daha anlaşılırdır)
+
+kucuk:
+    # "Daha kucuk" mesajı yazdır
+    li $v0, 4
+    la $a0, mesaj_kucuk
+    syscall             
+    j deneme_yazdir
+
+buyuk:
+    # "Daha buyuk" mesajı yazdır
+    li $v0, 4
+    la $a0, mesaj_buyuk 
+    syscall             
+    # (Not: Kaynaktaki 'tehmin ista' etiketi burada 'j deneme_yazdir' olmalı)
+    j deneme_yazdir
+
+deneme_yazdir:
+    # "Deneme Sayısı" mesajı
+    li $v0, 4
+    la $a0, mesaj_deneme
+    syscall             
+
+    # Deneme sayısını (int) yazdır
+    li $v0, 1
+    move $a0, $t1
+    syscall             
+    
+    # Yeni satır
+    li $v0, 4
+    la $a0, yeni_satir
+    syscall             
+
+    # Tekrar tahmin iste
+    j tahmin_iste       
+
+dogru:
+    # "Tebrikler" yaz
+    li $v0, 4
+    la $a0, mesaj_tebrik
+    syscall             
+    
+    # Programı bitir
+    li $v0, 10
+    syscall
+\`\`\`
+
+### Örnek 2: Kompleks Dizi Adresleme (Sınav Sorusu)
+
+**İfade:** \`F = A[B[i]] + C[B[i+6]]\`
+(Varsayımlar: \`i\` \`$t0\`'da, \`A\`'nın baş adresi \`$t2\`'de, \`B\`'nin baş adresi \`$t1\`'de, \`C\`'nin baş adresi \`$t3\`'te, \`F\` (sonuç) \`$s1\`'e yazılacak)
+
+\`\`\`mips
+# --- 1. Kısım: A[B[i]] ---
+
+# B[i]'nin adresini hesapla: &B + (i * 4)
+sll $t4, $t0, 2          # $t4 = i * 4
+add $t4, $t4, $t1        # $t4 = &B[i] (B'nin adresi + i*4)
+
+# B[i]'nin değerini yükle
+lw $t5, 0($t4)           # $t5 = B[i] (Bu A için YENİ İNDİS)
+
+# A[B[i]] için adresi hesapla: &A + (B[i] * 4)
+sll $t5, $t5, 2          # $t5 = B[i] * 4 (t7 kullanılmış)
+add $t6, $t5, $t2        # $t6 = &A[B[i]] (t8 kullanılmış)
+
+# A[B[i]] değerini yükle
+lw $t7, 0($t6)           # $t7 = A[B[i]] (İLK TOPLANACAK DEĞER)
+
+
+# --- 2. Kısım: C[B[i+6]] ---
+
+# (i+6) hesapla
+addi $s2, $t0, 6         # $s2 = i + 6
+
+# B[i+6]'nın adresini hesapla: &B + ((i+6) * 4)
+sll $s3, $s2, 2          # $s3 = (i+6) * 4
+add $s3, $s3, $t1        # $s3 = &B[i+6]
+
+# B[i+6]'nın değerini yükle
+lw $s4, 0($s3)           # $s4 = B[i+6] (Bu C için YENİ İNDİS)
+
+# C[B[i+6]] için adresi hesapla: &C + (B[i+6] * 4)
+sll $s5, $s4, 2          # $s5 = B[i+6] * 4
+add $s6, $s5, $t3        # $s6 = &C[B[i+6]]
+
+# C[B[i+6]] değerini yükle
+lw $s7, 0($s6)           # $s7 = C[B[i+6]] (İKİNCİ TOPLANACAK DEĞER)
+
+
+# --- 3. Toplama ---
+# F = A[B[i]] + C[B[i+6]]
+add $s1, $t7, $s7        # $s1 = $t7 + $s7 (Sonuç $s1'de)
+\`\`\`
+        `;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentDiv = document.getElementById('content');
+            const sidebarNav = document.getElementById('sidebar-nav');
+
+            if (!contentDiv || !sidebarNav || typeof marked === 'undefined') {
+                console.error("Gerekli elemanlar veya 'marked' kütüphanesi yüklenemedi.");
+                return;
+            }
+
+            // 1. Markdown'u HTML'e dönüştür
+            contentDiv.innerHTML = marked.parse(markdownContent);
+
+            // 2. Başlıkları (h2, h3) bul ve kenar çubuğunu oluştur
+            const headers = contentDiv.querySelectorAll('h2, h3');
+            const navUl = document.createElement('ul');
+            navUl.className = 'space-y-2';
+
+            headers.forEach((header, index) => {
+                const text = header.textContent;
+                // Başlıklara benzersiz ID'ler ata
+                const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + index;
+                header.id = id;
+
+                // Kenar çubuğu için link oluştur
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = text;
+                
+                // Stilleri ayarla (h2 veya h3 olmasına göre)
+                if (header.tagName === 'H2') {
+                    a.className = 'font-semibold text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 block';
+                } else { // h3
+                    a.className = 'ml-4 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 block text-sm';
+                }
+
+                li.appendChild(a);
+                navUl.appendChild(li);
+            });
+
+            sidebarNav.appendChild(navUl);
+        });
+    </script>
+</body>
+</html>
