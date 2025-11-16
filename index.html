@@ -94,21 +94,44 @@
 
         /* Dark mode stilleri */
         @media (prefers-color-scheme: dark) {
-            #content h1, #content h2 {
+            body {
+                background-color: #111827; /* Koyu gri arkaplan */
+                color: #d1d5db; /* Açık gri metin */
+            }
+            aside {
+                background-color: #1f2937; /* Daha koyu kenar çubuğu */
                 border-color: #374151;
             }
+            #content h1, #content h2 {
+                border-color: #374151;
+                color: #f9fafb; /* Başlıklar beyaz */
+            }
+            #content h3 {
+                color: #f3f4f6;
+            }
             #content code:not(pre > code) {
-                background-color: #374151;
+                background-color: #374151; /* Kod bloğu arkaplanı */
+                color: #e5e7eb;
             }
             #content th, #content td {
                 border-color: #4b5563;
             }
             #content th {
                 background-color: #1f2937;
+                color: #e5e7eb;
             }
             #content blockquote {
                 border-color: #4b5563;
                 color: #9ca3af;
+            }
+            #sidebar-nav a {
+                color: #9ca3af; /* Kenar çubuğu linkleri */
+            }
+            #sidebar-nav a:hover {
+                color: #3b82f6; /* Vurgu rengi */
+            }
+            #sidebar-nav h2 {
+                color: #f9fafb;
             }
         }
     </style>
@@ -116,8 +139,8 @@
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex h-screen">
 
     <!-- Kenar Çubuğu (Sidebar) -->
-    <aside class="w-64 lg:w-80 h-screen p-6 overflow-y-auto bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden sm:block">
-        <h2 class="text-xl font-bold mb-4">İçindekiler</h2>
+    <aside class="w-64 lg:w-80 h-screen p-6 overflow-y-auto bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden sm:block sticky top-0">
+        <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">İçindekiler</h2>
         <nav id="sidebar-nav">
             <!-- Navigasyon linkleri buraya eklenecek -->
         </nav>
@@ -132,7 +155,7 @@
 
     <!-- Gömülü Markdown Notları -->
     <script>
-        // Notlarınızın içeriğini buraya gömdüm
+        // Notlarınızın içeriğini buraya gömdüm (YENİ NOTLAR EKLENDİ)
         const markdownContent = `
 # Bilgisayar Mimarisi Notları
 
@@ -270,32 +293,39 @@ MIPS'te 32 adet 32-bitlik kaydedici vardır. Her birinin farklı görevi olan ka
 
 * \`$sp\`: Stack Pointer (Yığın Göstericisi).
 
-### Değişkenler
+### .data Bölümü (Değişkenler)
+
+Bellekte veri saklamak için kullanılan bir operatördür. Bu bölümde programın çalışması sırasında kullanılacak sabit değerler, diziler, string ve sayılar tanımlanır. \`.data\` bölümü bu gibi sabit değişkenlerin bellekte bir yer tutmasını sağlar.
 
 MIPS'te değişkenler bellekte tutulur. Temel düzeyde 3 değişken yapısı vardır:
-
 1. Global ve Statik değişkenler (\`.data\` bölümü)
-
 2. Yerel değişkenler (Yığın - Stack)
-
 3. Geçici değişkenler (Kaydediciler)
 
-**Global ve Statik Değişken Tanımlama (.data):**
+**.data Alt Komutları:**
 
-| Direktif | Açıklama |
-| :--- | :--- |
-| \`.word\` | Kelime (4 byte) |
-| \`.half\` | Yarım Kelime (2 byte) |
-| \`.byte\` | Bayt (1 byte) |
-| \`.space\` | Boşluk (N byte yer ayırır) |
-| \`.asciiz\` | String (Null sonlu metin) |
+* **\`.asciiz\`**: Boşluk sonlandırmalı metin (string) tanımlamak için kullanılır. Ekrana yazı yazdırmak (\`$v0=4\`) için kullanılır.
+    \`\`\`mips
+    mesaj: .asciiz "merhaba"
+    \`\`\`
+* **\`.ascii\`**: Boşluk karakteri (null terminator) *eklemeden* metin tanımlar.
+* **\`.word\`**: 32 bitlik (4 byte) tamsayı tanımlar.
+    \`\`\`mips
+    Sayi: .word 10, -10
+    \`\`\`
+* **\`.half\`**: 16 bitlik (2 byte) tamsayı tanımlar.
+* **\`.byte\`**: 8 bitlik (1 byte) veri tanımlar.
+    \`\`\`mips
+    Veri: .byte "A", "B"
+    \`\`\`
+* **\`.space\`**: Belirli miktarda (byte cinsinden) boşluk tanımlamak/ayırmak için kullanılır.
+    \`\`\`mips
+    bosluk: .space 16
+    \`\`\`
 
-**Örnek (C vs MIPS):** C dilindeki \`int x = 5;\` ifadesi:
+### .text Bölümü (Kod)
 
-\`\`\`mips
-.data
-x: .word 5
-\`\`\`
+Programda kodların çalıştığı, asıl komutların olduğu bölümdür. Genellikle \`main:\` etiketi ile başlar ve \`.data\` bölümünde tanımlanan verilerle etkileşime geçer.
 
 ### Veri Transfer Komutları
 
@@ -332,7 +362,6 @@ x: .word 5
      Bu komut aslında \`addi $t0, $zero, 5\` şeklinde çalışır (\$t0 = $zero + 5).
 
    * \`la\` (Load Address): Bir değişkenin (etiketin) bellek adresini bir kaydediciye transfer eder.
-
      \`\`\`mips
      la $t0, x  # $t0 = x'in bellek adresi
      \`\`\`
@@ -721,6 +750,36 @@ Ornek:
     jr $ra            
 \`\`\`
 
+### Prosedür Örneği: Toplama
+
+**Amaç:** 10 ve 5 sayılarını toplayıp ekrana yazdırmak (Prosedür kullanarak).
+
+*(Not: Bu örnek, sonucu yazdırmak için sistem çağrılarını kullanır)*
+
+\`\`\`mips
+.text
+main:
+    li $t1, 10
+    li $t2, 5
+    
+    jal topla
+    
+    # topla'dan dönüldü, sonuç $t3'te 
+    # (Not: İdealde $v0 kullanılmalı, ama notu aktarıyoruz)
+    move $a0, $t3   # $t3'teki sonucu $a0'a taşı
+    li $v0, 1       # Tamsayı yazdırma çağrısı
+    syscall
+    
+    # Programı sonlandır
+    li $v0, 10
+    syscall
+
+topla:
+    add $t3, $t1, $t2  # $t3 = $t1 + $t2
+    jr $ra             # Ana programa geri dön
+\`\`\`
+
+
 ## 6. Öz Yineleme (Recursive)
 
 Öz yineleme, bir fonksiyonun (prosedürün) kendi kendini çağırdığı bir programlama tekniğidir.
@@ -746,7 +805,7 @@ Faktoriyel:
 
     # 2. Kaydedicileri yığına sakla
     sw $a0, 0($sp)          # N değerini sakla
-    sw $ra, 4($sp)          # Dönüş adresi sakla
+    sw $ra, 4($sp)          # Dönüş adresini sakla
 
     # 3. Durdurma koşulu: if (N == 1)
     li $t0, 1
@@ -820,7 +879,7 @@ hesapla:
     
     # Yığından $ra'yı geri yükle ve yığını kapat
     lw $ra, 4($sp)         
-    addi $sp, $sp, 8        # (Tersi olmalı: addi $sp, $sp, 8)
+    addi $sp, $sp, 8        
     jr $ra                 
 
 dur:
@@ -832,7 +891,151 @@ dur:
     jr $ra                 
 \`\`\`
 
-## 7. Makine Komutu Organizasyonu
+### Örnek: İteratif Faktöriyel (Fonksiyon ile)
+
+Bu örnek, rekürsif (öz yinelemeli) değil, \`jal\` ile çağrılan *iteratif* (döngüsel) bir faktöriyel fonksiyonunu gösterir.
+
+\`\`\`mips
+# Örnek: 5! işlemini MIPS diline göre kodlayınız
+.text
+main:
+    li $a0, 5       # n = 5. Parametreyi $a0'a yüklüyoruz.
+    jal Faktoriyel
+    
+    # Faktoriyel'den dönüldü. Sonuç $v0'da.
+    # Sonucu ($v0) $t1'e taşıyalım (veya yazdıralım)
+    move $t1, $v0
+    
+    # Programı bitir
+    li $v0, 10
+    syscall
+
+Faktoriyel:
+    li $v0, 1       # Sonuç (result) = 1
+
+loop:
+    # Durdurma koşulu: if (a0 < 1) ise çık
+    slti $t0, $a0, 1    # $t0 = ($a0 < 1) ? 1 : 0
+    bne $t0, $zero, cik # $t0 != 0 ise (yani a0 < 1 ise) çık
+    
+    # Döngü gövdesi
+    mult $v0, $v0, $a0  # result = result * n
+    mflo $v0            # Sonucu $v0'a geri al
+    
+    addi $a0, $a0, -1   # n = n - 1
+    j loop
+
+cik:
+    jr $ra              # Ana programa geri dön ($v0'daki sonuçla)
+\`\`\`
+*(Not: Kaynaktaki \`mult\` komutu \`mflo\` ile takip edilmelidir. Kod, en iyi pratiğe göre düzeltilmiştir.)*
+
+
+## 7. Sistem Çağrıları (Syscall)
+
+Bilgisayar mimarisinde, programın işletim sisteminden bir hizmet (örn: ekrana yazdırma, klavyeden okuma, programı bitirme) istemesi gerekir. Bu işleme "Sistem Çağrısı" denir.
+
+MIPS'te sistem çağrısı \`syscall\` komutu ile yapılır.
+
+### Sistem Çağrısı Aşamaları
+1.  **Çağrı Yapma:** Program, ilgili çağrının numarasını ve parametrelerini belirler.
+2.  **Çekirdeğe Geçiş:** \`syscall\` komutu çalıştığında, işlemci "kullanıcı modu"ndan "çekirdek modu"na geçer ve kontrol işletim sistemine devredilir.
+3.  **İşlemi Tamamlama:** İşletim sistemi, istenen işlemi (örn: G/Ç) gerçekleştirir.
+4.  **Sonuç Döndürme:** İşlem bitince kontrol tekrar programa döner.
+
+### MIPS'te \`syscall\` Kullanımı
+
+Sistemde yapılacak çağrının türü (hangi hizmetin istendiği) \`$v0\` kaydedicisine yüklenir. Gerekli parametreler (örn: yazdırılacak sayı veya adres) \`$a0\`, \`$a1\` gibi argüman kaydedicilerine yüklenir.
+
+**Temel \`$v0\` Servis Kodları:**
+
+| Kod | Servis | Açıklama |
+| :--- | :--- | :--- |
+| **1** | Print Integer | \`$a0\`'da bulunan tamsayıyı ekrana yazdırır. |
+| **4** | Print String | \`$a0\`'da adresi bulunan (\`.asciiz\`) string'i ekrana yazdırır. |
+| **5** | Read Integer | Kullanıcıdan (klavyeden) bir tamsayı okur, sonucu \`$v0\`'a kaydeder. |
+| **8** | Read String | \`$a0\`'daki adrese, \`$a1\`'de belirtilen uzunlukta string okur. |
+| **10** | Exit | Programı sonlandırır. |
+| **11** | Print Char | \`$a0\`'daki karakteri yazdırır. |
+
+### Syscall Örnekleri
+
+**Örnek: Ekrana "merhaba" yazdıran program**
+
+\`\`\`mips
+.data
+mesaj: .asciiz "merhaba"
+
+.text
+main:
+    # "merhaba" yazdır
+    li $v0, 4           # Servis kodu 4: Print String
+    la $a0, mesaj       # String'in adresini $a0'a yükle
+    syscall
+    
+    # Programı bitir
+    li $v0, 10          # Servis kodu 10: Exit
+    syscall
+\`\`\`
+
+**Örnek: -10 ve 15'i çarpıp sonucu yazdıran program**
+
+\`\`\`mips
+.text
+main:
+    li $t0, -10
+    li $t1, 15
+    
+    mult $t0, $t1       # $t0 * $t1 (Sonuç HI/LO'da)
+    mflo $t2            # $t2 = -150
+    
+    # Sonucu ($t2) yazdır
+    li $v0, 1           # Servis kodu 1: Print Integer
+    move $a0, $t2       # Parametreyi ($a0) ayarla
+    syscall
+    
+    # Programı bitir
+    li $v0, 10
+    syscall
+\`\`\`
+
+**Örnek: Kullanıcıdan yaşını alıp ekrana yazdıran program**
+
+\`\`\`mips
+.data
+soru:  .asciiz "Yasinizi giriniz: "
+cevap: .asciiz "Yasiniz: "
+
+.text
+main:
+    # "Yasinizi giriniz: " yazdır
+    li $v0, 4
+    la $a0, soru
+    syscall
+    
+    # Kullanıcıdan integer al
+    li $v0, 5           # Servis kodu 5: Read Integer
+    syscall
+    # Okunan değer $v0'a gelir
+    
+    move $t0, $v0       # Gelen yaşı $t0'a kaydet
+    
+    # "Yasiniz: " yazdır
+    li $v0, 4
+    la $a0, cevap
+    syscall
+    
+    # Yaşı (integer) yazdır
+    li $v0, 1           # Servis kodu 1: Print Integer
+    move $a0, $t0       # $t0'daki yaşı $a0'a taşı
+    syscall
+    
+    # Programı bitir
+    li $v0, 10
+    syscall
+\`\`\`
+
+## 8. Makine Komutu Organizasyonu
 
 MIPS mimarisi 32 bitlik komutlar kullanır. Bu 32 bitin nasıl bölümlendiği, komutun format tipine (R, I, J) göre değişir.
 
@@ -891,7 +1094,7 @@ Yükleme (\`lw\`), depolama (\`sw\`), dallanma (\`beq\`) ve sabit (immediate) de
 
 * **Adres**: Atlanacak hedefin 26 bitlik adresi.
 
-## 8. Kapsamlı Örnekler
+## 9. Kapsamlı Örnekler
 
 ### Örnek 1: Sayı Tahmin Oyunu
 
@@ -941,17 +1144,11 @@ tahmin_iste:
     beq $t0, $t2, dogru 
 
     # if (tahmin < hedef) -> kucuk
-    # blt $t2, $t0, kucuk (slt kullanarak)
     slt $t3, $t2, $t0    # $t3 = (tahmin < hedef) ? 1 : 0
     bne $t3, $zero, kucuk
 
     # if (tahmin > hedef) -> buyuk
-    # (Yukarıdakilerin hiçbiri değilse büyüktür)
     j buyuk              
-                         # (Kaynakta 'blt $t0, $t2, kucuk' yazılmış, 
-                         #  ancak bu $t0 < $t2 (hedef < tahmin) demektir,
-                         #  yani 'buyuk' durumuna atlar. 
-                         #  Buradaki 'j buyuk' daha anlaşılırdır)
 
 kucuk:
     # "Daha kucuk" mesajı yazdır
@@ -965,7 +1162,6 @@ buyuk:
     li $v0, 4
     la $a0, mesaj_buyuk 
     syscall             
-    # (Not: Kaynaktaki 'tehmin ista' etiketi burada 'j deneme_yazdir' olmalı)
     j deneme_yazdir
 
 deneme_yazdir:
@@ -1014,8 +1210,8 @@ add $t4, $t4, $t1        # $t4 = &B[i] (B'nin adresi + i*4)
 lw $t5, 0($t4)           # $t5 = B[i] (Bu A için YENİ İNDİS)
 
 # A[B[i]] için adresi hesapla: &A + (B[i] * 4)
-sll $t5, $t5, 2          # $t5 = B[i] * 4 (t7 kullanılmış)
-add $t6, $t5, $t2        # $t6 = &A[B[i]] (t8 kullanılmış)
+sll $t5, $t5, 2          # $t5 = B[i] * 4
+add $t6, $t5, $t2        # $t6 = &A[B[i]]
 
 # A[B[i]] değerini yükle
 lw $t7, 0($t6)           # $t7 = A[B[i]] (İLK TOPLANACAK DEĞER)
@@ -1067,7 +1263,7 @@ add $s1, $t7, $s7        # $s1 = $t7 + $s7 (Sonuç $s1'de)
             headers.forEach((header, index) => {
                 const text = header.textContent;
                 // Başlıklara benzersiz ID'ler ata
-                const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + index;
+                const id = text.toLowerCase().replace(/[^a-z0-9ıöüçşğ]+/g, '-') + '-' + index;
                 header.id = id;
 
                 // Kenar çubuğu için link oluştur
